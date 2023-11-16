@@ -16,7 +16,7 @@ layout = [
     [sg.Text("Telefone")],
     [sg.Input(key="fone")],
     [sg.Button("Salvar")],
-    [sg.Button("Mostrar")],
+    [sg.Button("Pesquisar por Nome")],
     [sg.Button("Deletar")]
 
     ]
@@ -33,8 +33,8 @@ while True:
                 cursor.execute(f"insert into users (nome, telefone) values (?, ?);",(values['nome'], values['fone']))
                 conn.commit()
 
-    if events == "Mostrar":
-        lista = list(cursor.execute("select * from users;"))
+    if events == "Pesquisar por Nome":
+        lista = list(cursor.execute("select * from users where nome = ? limit 5", (values["nome"],)))
 
         lista_str = ''
         for i,a in lista:
